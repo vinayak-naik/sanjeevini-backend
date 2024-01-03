@@ -1,15 +1,15 @@
 import jwt from "jsonwebtoken";
-import config from "../config";
-import { get } from "lodash";
+import config from "config";
 
 export function signJwt(
   object: Object,
   keyName: "accessTokenPrivateKey" | "refreshTokenPrivateKey",
-  options?: jwt.SignOptions | undefined,
+  options?: jwt.SignOptions | undefined
 ) {
-  const signingKey = Buffer.from(get(config, keyName), "base64").toString(
-    "ascii",
-  );
+  const signingKey = Buffer.from(
+    config.get<string>(keyName),
+    "base64"
+  ).toString("ascii");
 
   return jwt.sign(object, signingKey, {
     ...(options && options),
@@ -19,10 +19,10 @@ export function signJwt(
 
 export function verifyJwt<T>(
   token: string,
-  keyName: "accessTokenPublicKey" | "refreshTokenPublicKey",
+  keyName: "accessTokenPublicKey" | "refreshTokenPublicKey"
 ): T | null {
-  const publicKey = Buffer.from(get(config, keyName), "base64").toString(
-    "ascii",
+  const publicKey = Buffer.from(config.get<string>(keyName), "base64").toString(
+    "ascii"
   );
 
   try {

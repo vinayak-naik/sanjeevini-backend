@@ -1,10 +1,11 @@
 import app from "./app";
 import connectDb from "./database";
-import config from "./config";
+import config from "config";
 import logger from "./utils/logger";
 
+const port = config.get("port");
 connectDb().then(() => {
-  app.listen(config.port, async () => {
-    logger.info(`Server is running http://localhost:${config.port}`);
+  app.listen(port, async () => {
+    logger.info(`Server is running http://localhost:${port}`);
   });
 });
