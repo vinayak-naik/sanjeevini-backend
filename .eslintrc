@@ -1,0 +1,46 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "include": ["./**/*.ts", "./**/*.js", "./.*.js"]
+  },
+  "root": true,
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+  "extends": [
+    "airbnb-typescript/base",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
+  ],
+  "env": {
+    "es6": true,
+    "browser": false,
+    "node": true
+  },
+  "rules": {
+    "import/prefer-default-export": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-unused-vars": [
+      1,
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        "semi": true,
+        "singleQuote": false,
+        "trailingComma": "off",
+        "printWidth": 80
+      }
+    ],
+    "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-console": "off"
+  }
+}
