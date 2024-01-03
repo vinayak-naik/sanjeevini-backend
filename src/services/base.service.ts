@@ -30,16 +30,16 @@ export default class BaseService<T> {
     return resource;
   };
 
-  delete = (id: string): void => {
+  delete = async (id: string): Promise<T> => {
     return this.model.deleteOne({ _id: new mongoose.Types.ObjectId(id) });
   };
 
-  findOne = async (match: Object) => {
+  findOne = async (match: Object): Promise<T> => {
     const resource = await this.model.findOne(match);
     return resource;
   };
 
-  findOneAndUpdate = async (match: Object, update: Object) => {
+  findOneAndUpdate = async (match: Object, update: Object): Promise<T> => {
     const resource = await this.model.findOneAndUpdate(match, update);
     return resource;
   };
