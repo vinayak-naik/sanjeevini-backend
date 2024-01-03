@@ -7,7 +7,7 @@ async function sendEmail(payload: SendMailOptions) {
     const senderEmail = config.get("senderEmail");
     const senderEmailPassword = config.get("senderEmailPassword");
     const transporter = nodemailer.createTransport(
-      `smtp://${senderEmail}:${senderEmailPassword}@smtp-mail.outlook.com`
+      `smtp://${senderEmail}:${senderEmailPassword}@smtp-mail.outlook.com`,
     );
     await transporter.sendMail(payload);
     log.info("Email sent successfully");

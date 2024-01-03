@@ -24,6 +24,8 @@
   "author": "Vinayak Manjunath Naik",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/config": "^3.3.3",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.20",
     "@types/lodash": "^4.14.202",

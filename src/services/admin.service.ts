@@ -4,7 +4,7 @@ import AdminModel from "../models/admin.model";
 import BaseService from "./base.service";
 
 import { signJwt } from "../utils/jwt";
-import { get, omit } from "lodash";
+import config from "config";
 
 @injectable()
 export default class AdminService extends BaseService<AdminSI> {
@@ -13,20 +13,31 @@ export default class AdminService extends BaseService<AdminSI> {
   }
 
   signAccessToken = async (admin: AdminSI) => {
-    const payload = omit(admin.toJSON(), ["password"]);
+    // const payload = omit(admin.toJSON(), ["password"]);
 
-    const accessToken = signJwt(payload, "accessTokenPrivateKey", {
-      expiresIn: "15m",
+    const accessTokenPayload = {
+      firstName: admin.firstName,
+      lastName: admin.lastName,
+      email: admin.email,
+    };
+
+    const accessToken = signJwt(accessTokenPayload, "accessTokenPrivateKey", {
+      expiresIn: config.get("accessTokenExpiration"),
     });
 
     return accessToken;
   };
   signRefreshToken = async (admin: AdminSI) => {
-    const objectId = get(admin.toJSON(), ["_id"]);
-    const payload = { adminId: objectId.valueOf() };
-    const refreshToken = signJwt(payload, "refreshTokenPrivateKey", {
-      expiresIn: "1y",
-    });
+    const refreshTokenPayload = {
+      adminId: admin._id,
+    };
+    const refreshToken = signJwt(
+      refreshTokenPayload,
+      "refreshTokenPrivateKey",
+      {
+        expiresIn: config.get("refreshTokenExpiration"),
+      },
+    );
     return refreshToken;
   };
 }

@@ -2,10 +2,13 @@ import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import indexRouter from "./routes/index.route";
+import deserializeUser from "./middleware/deserializeUser";
 const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+app.use(deserializeUser);
 
 app.get("/", (req, res) => {
   res.send("Hey you i'm here...");

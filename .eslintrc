@@ -30,17 +30,18 @@
       }
     ],
     "prettier/prettier": [
-      "warn",
+      "off",
       {
         "semi": true,
         "singleQuote": false,
-        "trailingComma": "off",
+        "trailingComma": "es5",
         "printWidth": 80
       }
     ],
     "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/no-useless-constructor": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-types": "off",
     "no-console": "off"
   }
 }

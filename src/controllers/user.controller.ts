@@ -1,7 +1,4 @@
-import { Request, Response } from "express";
 import { autoInjectable } from "tsyringe";
-import PostSI from "../interfaces/post.interface";
-import UserSI from "../interfaces/user.interface";
 import PostService from "../services/post.service";
 import UserService from "../services/user.service";
 import BaseController from "./base.controller";

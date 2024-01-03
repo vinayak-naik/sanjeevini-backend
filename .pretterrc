@@ -27,5 +27,6 @@
   ],
   "prettier.graphqlEnable": [
     "graphql"
-  ]
+  ],
+  "printWidth": 120
 }

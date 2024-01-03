@@ -1,7 +1,7 @@
 export const generateEmailTemplateForOTP = (
   firstName: string,
   lastName: string,
-  verificationCode: string
+  verificationCode: string,
 ) => {
   const template = `<!DOCTYPE html>
     <html lang="en">
