@@ -12,11 +12,6 @@ app.use(express.json());
 
 app.use(deserializeUser);
 
-app.get("/", (req, res) => {
-  res.send("Hey you i'm here...");
-});
-
-// all the routes here
 app.use("/api", indexRouter);
 
 // this is for 404
