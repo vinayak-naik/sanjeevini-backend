@@ -7,9 +7,15 @@ import UserSI from "../interfaces/user.interface";
 export default class UserModel implements ModelI {
   schema: Schema<any> = new Schema(
     {
-      name: {
+      firstName: {
         type: String,
         required: true,
+        lowercase: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+        lowercase: true,
       },
       email: {
         type: String,
@@ -19,18 +25,25 @@ export default class UserModel implements ModelI {
         type: String,
         required: true,
       },
-      posts: {
-        type: [
-          {
-            type: Schema.Types.ObjectId,
-            ref: "posts",
-          },
-        ],
+      verificationCode: {
+        type: String,
+      },
+      balance: {
+        type: Number,
+        default: 0,
+      },
+      role: {
+        type: String,
+        value: "user",
+      },
+      disabled: {
+        type: Boolean,
+        value: false,
       },
     },
     {
       timestamps: true,
-    },
+    }
   );
   model: Model<any, any> = model<UserSI>("users", this.schema);
 }

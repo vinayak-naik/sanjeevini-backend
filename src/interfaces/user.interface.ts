@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
-import { PostI } from "./post.interface";
 
 export interface UserI {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  password?: string;
-  posts: PostI[] | string[];
+  password: string;
+  role: string;
+  disabled: boolean;
+  balance: number;
+  verificationCode: string;
 }
 
 export default interface UserSI extends UserI, mongoose.Document {}

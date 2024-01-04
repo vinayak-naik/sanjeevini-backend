@@ -8,6 +8,7 @@ import sendEmail from "../utils/mailer";
 import config from "config";
 import { generateOTP } from "../utils/uniqueNumber";
 import { generateEmailTemplateForOTP } from "../utils/emailTemplate";
+import AdminSI from "../interfaces/admin.interface";
 
 @autoInjectable()
 export default class AdminController extends BaseController {
@@ -61,24 +62,22 @@ export default class AdminController extends BaseController {
       const hash = await bcrypt.hash(otp, 10);
 
       // Add OTP to admin ddocument
-      await this.service.findOneAndUpdate(
-        { email: admin.email },
-        { verificationCode: hash }
-      );
+      await this.service.findOneAndUpdate({ email: admin.email }, { verificationCode: hash });
 
       // Create email template for OTP
-      const template = generateEmailTemplateForOTP(
-        admin.firstName,
-        admin.lastName,
-        otp
-      );
+      const template = generateEmailTemplateForOTP(admin.firstName, admin.lastName, otp);
       // Send OTP to admin email
-      await sendEmail({
+      const response = await sendEmail({
         to: admin.email,
         from: config.get("senderEmail"),
         subject: "Email Verification, Sanjeevini",
         html: template,
       });
+
+      if (!response) {
+        const failedEmailMessage = "Failed to send OTP";
+        sendResponse(res, 400, false, null, failedEmailMessage);
+      }
 
       // Send response
       const successMessage = "OTP sent successfully";
@@ -97,10 +96,7 @@ export default class AdminController extends BaseController {
         return;
       }
 
-      const compare = await bcrypt.compare(
-        req.body.verificationCode,
-        admin.verificationCode
-      );
+      const compare = await bcrypt.compare(req.body.verificationCode, admin.verificationCode);
       if (!compare) {
         const verificationFailedMessage = "Verification Failed";
         sendResponse(res, 403, false, null, verificationFailedMessage);
@@ -114,13 +110,29 @@ export default class AdminController extends BaseController {
       const refreshToken = await this.service.signRefreshToken(admin);
 
       const successMessage = "Logged in successfully";
-      sendResponse(
-        res,
-        200,
-        true,
-        { accessToken, refreshToken },
-        successMessage
-      );
+      sendResponse(res, 200, true, { accessToken, refreshToken }, successMessage);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  addBalance = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const admin = (await this.service.findOne({
+        email: res.locals.user.email,
+      })) as AdminSI;
+      if (!admin) {
+        const failedMessage = "Admin not found";
+        sendResponse(res, 403, false, null, failedMessage);
+        return;
+      }
+      const finalBalance = req.body.balance + admin.balance;
+      const updatedAdmin = (await this.service.findOneAndUpdate(
+        { email: res.locals.user.email },
+        { balance: finalBalance }
+      )) as AdminSI;
+      const successMessage = "Balance added successfully";
+      sendResponse(res, 200, true, updatedAdmin, successMessage);
     } catch (error) {
       next(error);
     }

@@ -4,7 +4,7 @@ import userRouter from "./user.route";
 
 const indexRouter = Router();
 
-indexRouter.use("/user", userRouter);
 indexRouter.use("/admin", adminRouter);
+indexRouter.use("/user", userRouter);
 
 export default indexRouter;

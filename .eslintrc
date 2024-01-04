@@ -35,7 +35,7 @@
         "semi": true,
         "singleQuote": false,
         "trailingComma": "es5",
-        "printWidth": 80
+        "printWidth": 120
       }
     ],
     "@typescript-eslint/lines-between-class-members": "off",

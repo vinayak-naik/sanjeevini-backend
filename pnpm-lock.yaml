@@ -27,8 +27,8 @@ dependencies:
     specifier: ^7.0.0
     version: 7.0.0
   jsonwebtoken:
-    specifier: ^9.0.2
-    version: 9.0.2
+    specifier: ^8.5.1
+    version: 8.5.1
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -2179,9 +2179,9 @@ packages:
     hasBin: true
     dev: false
 
-  /jsonwebtoken@9.0.2:
-    resolution: { integrity: sha1-Zf+R9KvvF4RpfUCVK7GZjFBMqvM= }
-    engines: { node: ">=12", npm: ">=6" }
+  /jsonwebtoken@8.5.1:
+    resolution: { integrity: sha1-AOceC431TCEhofJhN98igGc7zA0= }
+    engines: { node: ">=4", npm: ">=1.4.28" }
     dependencies:
       jws: 3.2.2
       lodash.includes: 4.3.0
@@ -2192,7 +2192,7 @@ packages:
       lodash.isstring: 4.0.1
       lodash.once: 4.1.1
       ms: 2.1.3
-      semver: 7.5.4
+      semver: 5.7.2
     dev: false
 
   /jwa@1.4.1:
@@ -3050,6 +3050,11 @@ packages:
   /secure-json-parse@2.7.0:
     resolution: { integrity: sha1-Wl+c1q5H3yPboxUe3QaFXUfgmGI= }
     dev: true
+
+  /semver@5.7.2:
+    resolution: { integrity: sha1-SNVdtzfDKHzUg14X+hP+rOHEHvg= }
+    hasBin: true
+    dev: false
 
   /semver@6.3.1:
     resolution: { integrity: sha1-VW0u+GiRRuRtzqS/3QlfNDTf/LQ= }

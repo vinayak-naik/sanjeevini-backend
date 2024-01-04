@@ -5,22 +5,37 @@ import ModelI from "../interfaces/model.interface";
 
 @singleton()
 export default class AdminModel implements ModelI {
-  schema: Schema<any> = new Schema({
-    firstName: {
-      type: String,
-      required: true,
+  schema: Schema<any> = new Schema(
+    {
+      firstName: {
+        type: String,
+        required: true,
+        lowercase: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+        lowercase: true,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
+      verificationCode: {
+        type: String,
+      },
+      balance: {
+        type: Number,
+        default: 0,
+      },
+      role: {
+        type: String,
+        value: "admin",
+      },
     },
-    lastName: {
-      type: String,
-      required: true,
+    {
+      timestamps: true,
     },
-    email: {
-      type: String,
-      required: true,
-    },
-    verificationCode: {
-      type: String,
-    },
-  });
+  );
   model: Model<any, any> = model<AdminSI>("admins", this.schema);
 }
